@@ -1,0 +1,39 @@
+{
+  "name": "react-ssr",
+  "version": "1.0.0",
+  "description": "React server side rendering project from scratch",
+  "main": "index.js",
+  "scripts": {
+    "start": "WEBPACK_ENV=development webpack serve --open",
+    "build": "WEBPACK_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnindrazaka/react-ssr.git"
+  },
+  "keywords": [
+    "react",
+    "server side rendering"
+  ],
+  "author": "mnindrazaka@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnindrazaka/react-ssr/issues"
+  },
+  "homepage": "https://github.com/mnindrazaka/react-ssr#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.1",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.8.0"
+  }
+}
