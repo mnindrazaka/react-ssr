@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require("webpack-merge");
 
 const baseConfig = {
-  entry: "./src/client.js",
+  entry: "./src/client/index.js",
   output: {
     filename: "assets/js/main.js",
     path: path.resolve(__dirname, "build"),
@@ -19,6 +19,14 @@ const baseConfig = {
             presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
+      },
+      {
+        test: /\.css/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)/i,
+        type: "asset/resource",
       },
     ],
   },
