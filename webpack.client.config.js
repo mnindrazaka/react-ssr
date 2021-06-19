@@ -1,11 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require("webpack-merge");
+const webpack = require("webpack");
 
 const baseConfig = {
-  entry: "./src/index.jsx",
+  entry: "./src/client.js",
   output: {
-    filename: "main.js",
+    filename: "assets/js/main.js",
     path: path.resolve(__dirname, "build"),
   },
   module: {
@@ -28,6 +29,9 @@ const baseConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "public/index.html",
+    }),
+    new webpack.EnvironmentPlugin({
+      SSR: false,
     }),
   ],
 };

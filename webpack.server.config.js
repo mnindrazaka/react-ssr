@@ -16,14 +16,14 @@ const baseConfig = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"],
+            presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
       },
     ],
   },
   resolve: {
-    extensions: [".js"],
+    extensions: [".js", ".jsx"],
   },
   target: "node",
   externals: [nodeExternals()],
