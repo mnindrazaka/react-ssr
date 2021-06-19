@@ -1,35 +1,32 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { merge } = require("webpack-merge");
+const nodeExternals = require("webpack-node-externals");
 
 const baseConfig = {
-  entry: "./src/index.jsx",
+  entry: path.resolve(__dirname, "src/server.js"),
   output: {
-    filename: "main.js",
+    filename: "server/index.js",
     path: path.resolve(__dirname, "build"),
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)/i,
+        test: /\.js/i,
         exclude: path.resolve(__dirname, "node_modules"),
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
+            presets: ["@babel/preset-env"],
           },
         },
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx"],
+    extensions: [".js"],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "public/index.html",
-    }),
-  ],
+  target: "node",
+  externals: [nodeExternals()],
 };
 
 const productionConfig = merge(baseConfig, {
@@ -38,10 +35,7 @@ const productionConfig = merge(baseConfig, {
 
 const developmentConfig = merge(baseConfig, {
   mode: "development",
-  devtool: "inline-source-map",
-  devServer: {
-    contentBase: "./build",
-  },
+  devtool: "source-map",
 });
 
 module.exports =
