@@ -4,10 +4,9 @@
   "description": "React server side rendering project from scratch",
   "main": "index.js",
   "scripts": {
-    "start": "WEBPACK_ENV=development webpack serve --open --config webpack.client.config.js",
-    "build": "WEBPACK_ENV=production webpack --config webpack.client.config.js",
-    "start:server": "nodemon --watch src --exec 'WEBPACK_ENV=development webpack --config webpack.server.config.js && node build/server/index.js' ",
-    "build:server": "WEBPACK_ENV=production webpack --config webpack.server.config.js"
+    "build:server": "webpack --config webpack.server.config.js",
+    "build:client": "webpack --config webpack.client.config.js",
+    "dev": "WEBPACK_ENV=development concurrently 'nodemon build/server/index.js' 'npm run build:server -- --watch' 'npm run build:client -- --watch'"
   },
   "repository": {
     "type": "git",
@@ -33,6 +32,7 @@
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
     "babel-loader": "^8.2.2",
+    "concurrently": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",
     "nodemon": "^2.0.7",
     "webpack": "^5.39.1",
