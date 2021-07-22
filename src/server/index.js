@@ -5,6 +5,7 @@ import React from "react";
 import ReactDomServer from "react-dom/server";
 import { StaticRouter } from "react-router-dom";
 import App from "../client/App";
+import Handlebars from "handlebars";
 
 const app = express();
 
@@ -17,19 +18,22 @@ app.get("/*", (req, res) => {
     </StaticRouter>
   );
 
-  fs.readFile(path.resolve(__dirname, "../index.html"), (err, data) => {
-    const htmlString = data.toString();
-    const splittedHTMLString = htmlString.split('<div id="root"></div>');
-    const htmlBefore = splittedHTMLString[0] + '<div id="root">';
-    const htmlAfter = "</div>" + splittedHTMLString[1];
+  const htmlBefore = fs
+    .readFileSync(path.resolve(__dirname, "views", "before.handlebars"))
+    .toString();
+  const templateBefore = Handlebars.compile(htmlBefore);
 
-    res.write(htmlBefore);
+  res.write(templateBefore());
 
-    readableStream.pipe(res, { end: false });
+  readableStream.pipe(res, { end: false });
 
-    readableStream.on("end", () => {
-      res.end(htmlAfter);
-    });
+  const htmlAfter = fs
+    .readFileSync(path.resolve(__dirname, "views", "after.handlebars"))
+    .toString();
+  const templateAfter = Handlebars.compile(htmlAfter);
+
+  readableStream.on("end", () => {
+    res.end(templateAfter());
   });
 });
 
